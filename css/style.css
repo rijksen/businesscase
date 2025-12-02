@@ -1,0 +1,228 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #111;
+  padding: 16px;
+  font-size: 14px;
+  zoom: 0.80 ; /* 80% */
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+h3 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+}
+
+.layout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.left {
+  flex: 1;   /* neemt 1 deel */
+}
+
+.right {
+  flex: 1;   /* neemt 1 deel */
+}
+
+section,
+.parameters,
+.results,
+.result-box {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+section {
+  margin-bottom: 10px;
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  margin-bottom: 4px;
+}
+
+input[type=text],
+input[type=number] {
+  width: 100px;
+  text-align: right;
+  padding: 3px;
+  font-size: 13px;
+}
+
+.total {
+  margin-top: 6px;
+  font-weight: bold;
+  color: #e67e22;
+  font-size: 13px;
+}
+
+.param-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.param-row label {
+  width: auto;
+  flex: 1;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #2c3e50, #34495e);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.page-header .logo {
+  height: 40px;
+  width: auto;
+}
+
+.page-header .title {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.page-header .title h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.page-header .title p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.results {
+  margin-top: 12px;
+}
+
+.results h3 {
+  margin: 3px 0;
+  font-size: 16px;
+}
+
+.result-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.result-box {
+  flex: 1;
+  min-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fafafa;
+}
+
+.result-box h4 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.result-row label {
+  color: #333;
+}
+
+.result-row span {
+  font-weight: bold;
+}
+
+.total-row {
+  border-top: 1px solid #ddd;
+  padding-top: 4px;
+  margin-top: 4px;
+}
+
+.grand-total {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.sub-block {
+  margin-bottom: 8px;
+}
+
+.results-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.results-icon {
+  stroke: #007acc;
+}
+
+.pdf-button {
+  padding: 8px 12px;
+  font-size: 13px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pdf-button:hover {
+  background-color: #005fa3;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* ruimte tussen label, slider en percentage */
+  margin-bottom: 10px;
+}
+
+.slider-row label {
+  width: 200px; /* zelfde breedte voor alle labels zodat sliders gelijk starten */
+}
+
+/*Grafiek*/
+.gauge-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.gauge-box {
+    text-align: center;
+    font-weight: bold;
+}
+
+.gauge-title {
+  margin: 0px;
+  margin-bottom: 0px;
+  font-size: 16px;
+  font-weight: 600;
+}
