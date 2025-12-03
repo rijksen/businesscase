@@ -23,6 +23,8 @@ A web-based tool (HTML, CSS, JavaScript) that enables users to calculate various
     - Electricity consumption
     - Maintenance costs
 
+- **PDF report generation:**
+  - Generate a downloadable PDF summary containing input data, all calculated KPIs, and savings results.
 ---
 
 ## Technologies Used
@@ -36,6 +38,7 @@ This project is built entirely with static web technologies:
 ## Customization & Extension
 Want to extend the tool?
 - Add new KPIs in `app.js`
+- Modify or extend PDF in `export.js`
 - Adjust styling through `styles.css`
 - Modify or extend the interface via `index.html`
 
