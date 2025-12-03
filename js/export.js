@@ -2,34 +2,32 @@ function exportPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Kleuren
+    // Colours
     const accentColor = [0, 102, 204];   // blauw
     const lightGray = [240, 240, 240];   // achtergrond
 
-    // Headerbalk
+    // Header bar
     doc.setFillColor(...accentColor);
-    //doc.rect(0, 0, 210, 20, "F");
     doc.rect(14, 5, 182, 15, "F");
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(14);
-    //doc.text("Inzicht in Energie- en Onderhoudsbesparingen", 105, 13, { align: "center" });
     doc.text("Inzicht in Energie- en Onderhoudsbesparingen", 105, 13, { align: "center" });
-    // Reset kleur
+    // Reset colour
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(11);
     doc.setFont("helvetica", "normal");
 
     let y = 30;
 
-    // Sectie: klantgegevens
+    // Section: Customer data
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(...accentColor);
     doc.text("Ingevoerde gegevens", 14, y);
     y += 4;
 
-    // Lijntje onder kop
+    // Line under the headline
     doc.setDrawColor(...accentColor);
     doc.setLineWidth(0.2);
     doc.line(14, y, 196, y);
@@ -39,7 +37,7 @@ function exportPDF() {
     doc.setFont("helvetica", "normal");
 
     function addSection(title, values) {
-    // Subsectie titel met lichte achtergrond
+    // Subsection title with light background
     doc.setFillColor(...lightGray);
     doc.rect(14, y - 4, 182, 8, "F");
 
@@ -49,17 +47,17 @@ function exportPDF() {
 
     doc.setFont("helvetica", "normal");
     values.forEach(([label, val]) => {
-        // Controleer of dit een totaalregel is → teken dan optelstreep
+        // Check if this is a total line → then draw the addition line
         const isTotaal =
             label.toLowerCase().includes("totaal elektriciteit") ||
             label.toLowerCase().includes("totaal gas") ||
             label.toLowerCase().includes("totaal besparingspotentieel");
 
         if (isTotaal) {
-            // optelstreep boven de regel
+            // Addition line above the line
             doc.setDrawColor(0, 0, 0);
             doc.setLineWidth(0.2);
-            doc.line(160, y - 4, 196, y - 4); // optelstreep boven bedrag
+            doc.line(160, y - 4, 196, y - 4); // Addition line above amount
             doc.setFont("helvetica", "bold");
         } else {
             doc.setFont("helvetica", "normal");
@@ -74,9 +72,8 @@ function exportPDF() {
     y += 4;
 }
 
-    // ======= Klant ingevoerde gegevens =======
+    // ======= Customer entered data =======
     addSection("Elektriciteit", [
-        // ["Totaal volume (kWh)", formatMeasure(document.getElementById("elec_vol").value, "kWh", 0)],
         ["Totaal volume (kWh)", document.getElementById("param_elec_vol").textContent],
         ["Factuur Elektriciteit", document.getElementById("param_elec_inv").textContent],
         ["Factuur Transport", document.getElementById("param_elec_tr").textContent],
@@ -109,7 +106,7 @@ function exportPDF() {
     ]);
 
 
-    // ======= Besparingsresultaten =======
+    // ======= Savings results =======
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
     doc.setTextColor(...accentColor);
@@ -126,11 +123,10 @@ function exportPDF() {
         ["Besparing onderhoud", document.getElementById("maint_save").textContent],
         ["Besparing gas", document.getElementById("gas_save").textContent],
         ["Besparing elektriciteit", document.getElementById("elec_save").textContent],
-        //["Totaal energie besparing", document.getElementById("energy_save").textContent],
         ["Totaal besparingspotentieel", document.getElementById("grand_total").textContent]
     ]);
 
-    // ======= KPI vergelijking =======
+    // ======= KPI comparison =======
     y += 6;
     const col1X = 14;
     const col2X = 115;
@@ -153,7 +149,7 @@ function exportPDF() {
         ["kWh / ton ", document.getElementById("kwh_new").textContent]
     ];
 
-    // Kolomtitels
+    // Column titles
     doc.setFont("helvetica", "bold");
     doc.text("Huidige KPI's", col1X, y);
     doc.text("Nieuwe KPI's", col2X, y);

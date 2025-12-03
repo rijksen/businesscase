@@ -21,13 +21,13 @@ function formatMeasure(getal, eenheid = 'kWh', decimals = 2) {
 function parseTonumber(str) {
     if (!str) return 0;
 
-    // Haal alle niet-cijfers, punten, komma's en mintekens weg
+    // Remove all non-numbers, periods, commas, and minus signs
     let clean = str.replace(/[^\d.,-]/g, '');
 
-    // NL duizendtallen: '.' → verwijderen
+    // NL thousands: '.' → remove
     clean = clean.replace(/\./g, '');
 
-    // NL decimaalteken: ',' → '.'
+    // NL decimal point: ',' → '.'
     clean = clean.replace(',', '.');
 
     return parseFloat(clean);
@@ -196,7 +196,7 @@ function drawGauge(value, graphType) {
 
     ctx.clearRect(0, 0, width, height);
 
-    // Achtergrondboog
+    // Background arc
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, Math.PI, 0, false);
     ctx.lineWidth = 20;
@@ -206,7 +206,7 @@ function drawGauge(value, graphType) {
     ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // Gevulde boog
+    // Filled arch
     let valuePercent = Math.min(value / maxSaving, 1);
     const gradient = ctx.createLinearGradient(0, 0, width, 0);
     gradient.addColorStop(0, '#00c853');
@@ -219,7 +219,7 @@ function drawGauge(value, graphType) {
     ctx.lineCap = 'round';
     ctx.stroke();
 
-    // Naald
+    // Needle
     const angle = Math.PI + valuePercent * Math.PI;
     const needleLength = radius - 10;
 
@@ -233,7 +233,7 @@ function drawGauge(value, graphType) {
     ctx.stroke();
     ctx.shadowBlur = 0;
 
-    // Center bol
+    // Needle ball
     ctx.beginPath();
     ctx.arc(centerX, centerY, 8, 0, Math.PI * 2);
     ctx.fillStyle = 'white';

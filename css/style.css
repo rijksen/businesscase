@@ -24,11 +24,11 @@ h3 {
 }
 
 .left {
-  flex: 1;   /* neemt 1 deel */
+  flex: 1;   /* takes 1 part */
 }
 
 .right {
-  flex: 1;   /* neemt 1 deel */
+  flex: 1;   /* takes 1 part */
 }
 
 section,
@@ -199,15 +199,15 @@ input[type=number] {
 .slider-row {
   display: flex;
   align-items: center;
-  gap: 10px; /* ruimte tussen label, slider en percentage */
+  gap: 10px; /* space between label, slider and percentage */
   margin-bottom: 10px;
 }
 
 .slider-row label {
-  width: 200px; /* zelfde breedte voor alle labels zodat sliders gelijk starten */
+  width: 200px; /* same width for all labels so sliders start at the same time */
 }
 
-/*Grafiek*/
+/*Gauge*/
 .gauge-row {
     display: flex;
     justify-content: center;
