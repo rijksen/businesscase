@@ -4,7 +4,13 @@ body {
   color: #111;
   padding: 16px;
   font-size: 14px;
-  zoom: 0.80 ; /* 80% */
+  zoom: 1;
+}
+
+@media (min-width: 1200px) {
+  body {
+    zoom: 0.85;
+  }
 }
 
 h1 {
@@ -21,10 +27,6 @@ h3 {
   display: flex;
   gap: 12px;
   align-items: flex-start;
-}
-
-.left {
-  flex: 1;   /* takes 1 part */
 }
 
 .right {
@@ -199,25 +201,61 @@ input[type=number] {
 .slider-row {
   display: flex;
   align-items: center;
-  gap: 10px; /* space between label, slider and percentage */
+  gap: 10px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+
+  input {
+    width: 150px;
+  }
+
+  span {
+    width: 110px;
+  }
 }
 
 .slider-row label {
-  width: 200px; /* same width for all labels so sliders start at the same time */
+  width: 180px;
+}
+
+@media (max-width: 768px) {
+  .slider-row label {
+    width: 100%;
+  }
+
+  .slider-row input[type="range"] {
+    width: 100%;
+  }
+
+  .slider-row span {
+    width: 100%;
+    text-align: right;
+  }
+}
+
+@media (max-width: 1200px) {
+  .left {
+    flex: 1;
+  }
 }
 
 /*Gauge*/
 .gauge-row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  height: 100%;
 }
 
 .gauge-box {
-    text-align: center;
-    font-weight: bold;
+  flex: 1 1 220px;
+  max-width: 300px;
+}
+
+.gauge-box canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 .gauge-title {
@@ -225,4 +263,22 @@ input[type=number] {
   margin-bottom: 0px;
   font-size: 16px;
   font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  section {
+    padding: 8px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+
+  .page-header {
+    padding: 8px 12px;
+  }
+
+  .pdf-button {
+    width: 100%;
+  }
 }
