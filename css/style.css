@@ -157,6 +157,18 @@ input[type=number] {
   font-weight: bold;
 }
 
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #2c3e50, #34495e);
+  color: #fff;
+  padding: 2px 20px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
 .total-row {
   border-top: 1px solid #ddd;
   padding-top: 4px;
@@ -250,7 +262,7 @@ input[type=number] {
 
 .gauge-box {
   flex: 1 1 220px;
-  max-width: 300px;
+  max-width: 270px;
 }
 
 .gauge-box canvas {

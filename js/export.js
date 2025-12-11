@@ -3,8 +3,8 @@ function exportPDF() {
     const doc = new jsPDF();
 
     // Colours
-    const accentColor = [0, 102, 204];   // blauw
-    const lightGray = [240, 240, 240];   // achtergrond
+    const accentColor = [0, 102, 204];   // Blue
+    const lightGray = [240, 240, 240];   // Background
 
     // Header bar
     doc.setFillColor(...accentColor);
@@ -49,8 +49,6 @@ function exportPDF() {
     values.forEach(([label, val]) => {
         // Check if this is a total line → then draw the addition line
         const isTotaal =
-            label.toLowerCase().includes("totaal elektriciteit") ||
-            label.toLowerCase().includes("totaal gas") ||
             label.toLowerCase().includes("totaal besparingspotentieel");
 
         if (isTotaal) {
@@ -74,16 +72,14 @@ function exportPDF() {
 
     // ======= Customer entered data =======
     addSection("Elektriciteit", [
-        ["Totaal volume (kWh)", document.getElementById("param_elec_vol").textContent],
-        ["Factuur Elektriciteit", document.getElementById("param_elec_inv").textContent],
-        ["Factuur Transport", document.getElementById("param_elec_tr").textContent],
+        ["Jaar volume (kWh)", document.getElementById("param_elec_vol").textContent],
+        ["Elektriciteit tarief (€/kWh)", document.getElementById("param_elec_inv").textContent],
         ["Totaal Elektriciteit", document.getElementById("elec_total").textContent]
     ]);
 
     addSection("Gas", [
-        ["Totaal volume (m³)", document.getElementById("param_gas_vol").textContent],
-        ["Factuur Gas", document.getElementById("param_gas_inv").textContent],
-        ["Factuur Transport", document.getElementById("param_gas_tr").textContent],
+        ["Jaar volume (m³)", document.getElementById("param_gas_vol").textContent],
+        ["Gas tarief (€/m³)", document.getElementById("param_gas_inv").textContent],
         ["Totaal Gas", document.getElementById("gas_total").textContent]
     ]);
 
@@ -121,8 +117,8 @@ function exportPDF() {
 
     addSection("Besparingspotentieel", [
         ["Besparing onderhoud", document.getElementById("maint_save").textContent],
-        ["Besparing gas", document.getElementById("gas_save").textContent],
-        ["Besparing elektriciteit", document.getElementById("elec_save").textContent],
+        ["Besparing gas", document.getElementById("gast_total").textContent],
+        ["Besparing elektriciteit", document.getElementById("elect_total").textContent],
         ["Totaal besparingspotentieel", document.getElementById("grand_total").textContent]
     ]);
 
@@ -132,31 +128,27 @@ function exportPDF() {
     const col2X = 115;
 
     const kpiOud = [
-        ["Onderhoudskosten / ton", document.getElementById("maint_now").textContent],
-        ["Gas / ton", document.getElementById("gas_now").textContent],
-        ["Electra / ton", document.getElementById("elec_now").textContent],
-        ["Totaal Energie / ton", document.getElementById("energy_now").textContent],
-        ["m³ gas / ton ", document.getElementById("m3_now").textContent],
-        ["kWh / ton ", document.getElementById("kwh_now").textContent]
+        ["Onderhoudskosten per ton", document.getElementById("maint_now").textContent],
+        ["Energie kosten per ton", document.getElementById("energy_now").textContent],
+        ["Gas verbuik (m³/ton) ", document.getElementById("m3_now").textContent],
+        ["Electriciteit verbruik (kWh/ton) ", document.getElementById("kwh_now").textContent]
     ];
 
     const kpiNieuw = [
-        ["Onderhoudskosten / ton", document.getElementById("maint_new").textContent],
-        ["Gas / ton", document.getElementById("gas_new").textContent],
-        ["Electra / ton", document.getElementById("elec_new").textContent],
-        ["Totaal Energie / ton", document.getElementById("energy_new").textContent],
-        ["m³ gas / ton ", document.getElementById("m3_new").textContent],
-        ["kWh / ton ", document.getElementById("kwh_new").textContent]
+        ["Onderhoudskosten per ton", document.getElementById("maint_new").textContent],
+        ["Energiekosten per ton", document.getElementById("energy_new").textContent],
+        ["Gas verbruik (m³/ton) ", document.getElementById("m3_new").textContent],
+        ["lectriciteit verbruik (kWh/ton) ", document.getElementById("kwh_new").textContent]
     ];
 
     // Column titles
     doc.setFont("helvetica", "bold");
-    doc.text("Huidige KPI's", col1X, y);
-    doc.text("Nieuwe KPI's", col2X, y);
+    doc.text("Huidige kosten & verbruik", col1X, y);
+    doc.text("Nieuwe kosten & verbruik", col2X, y);
     y += 6;
 
     doc.setFont("helvetica", "normal");
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
         doc.text(kpiOud[i][0], col1X, y);
         doc.text(kpiOud[i][1], col1X + 80, y, { align: "right" });
 
@@ -175,5 +167,5 @@ function exportPDF() {
     doc.text("(c) van Mourik Group", 14, y, { align: "left" });
     doc.text("pagina 1", 192, y, { align: "right" });
 
-    doc.save("Energie_Kosten_Rapport.pdf");
+    doc.save("Besparing_Rapport.pdf");
 }
