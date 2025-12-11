@@ -33,13 +33,13 @@ function parseTonumber(str) {
     return parseFloat(clean);
 }
 
-function updateLabel(param, unitMeasure) {
+function updateLabel(param, unitMeasure, rounding) {
     const slider = document.getElementById('slider_' + param);
     const label = document.getElementById('param_' + param);
     if (unitMeasure === "€")
-        {label.textContent = euroBedrag(slider.value, 0)}
+        {label.textContent = euroBedrag(slider.value, rounding)}
     else
-        {label.textContent = formatMeasure(slider.value, unitMeasure, 0)}
+        {label.textContent = formatMeasure(slider.value, unitMeasure, rounding)}
     recalc()
 }
 
@@ -48,16 +48,14 @@ function recalc(){
     // Electricity block
     const elec_vol = parseTonumber(document.getElementById("param_elec_vol").textContent);
     const elec_inv = parseTonumber(document.getElementById("param_elec_inv").textContent);
-    const elec_tr  = parseTonumber(document.getElementById("param_elec_tr").textContent);
     const elec_total = document.getElementById("elec_total");
-    elec_total.textContent = euroBedrag(parseFloat(elec_inv) + parseFloat(elec_tr), 0);
-    
+    elec_total.textContent = euroBedrag(parseFloat(elec_inv * elec_vol), 0);
+
     // Gas block
     const gas_vol = parseTonumber(document.getElementById("param_gas_vol").textContent);
     const gas_inv = parseTonumber(document.getElementById("param_gas_inv").textContent);
-    const gas_tr  = parseTonumber(document.getElementById("param_gas_tr").textContent);
     const gas_total = document.getElementById("gas_total");
-    gas_total.textContent = euroBedrag(parseFloat(gas_inv) + parseFloat(gas_tr), 0);
+    gas_total.textContent = euroBedrag(parseFloat(gas_inv * gas_vol), 0);
 
     // Maintenance block
     const maint_cost  = parseTonumber(document.getElementById("param_maint_cost").textContent);
@@ -75,17 +73,16 @@ function recalc(){
     const maint_now_ton = maint_cost / prod_vol;
     maint_now.textContent = euroBedrag(maint_now_ton, 2);
 
-    const gas_now  = document.getElementById("gas_now");
-    const gas_now_ton = (gas_inv + gas_tr) / prod_vol;
-    gas_now.textContent = euroBedrag(gas_now_ton, 2);
-
-    const elec_now  = document.getElementById("elec_now");
-    const elec_now_ton = (elec_inv + elec_tr) / prod_vol;
-    elec_now.textContent = euroBedrag(elec_now_ton, 2);
+    const gas_now_ton = (gas_inv * gas_vol) / prod_vol;
+    const elec_now_ton = (elec_inv * elec_vol) / prod_vol;
     
     const energy_now  = document.getElementById("energy_now");
     const energy_now_ton = gas_now_ton + elec_now_ton
     energy_now.textContent = euroBedrag(energy_now_ton, 2);
+
+    const maint_energy_now  = document.getElementById("maint_energy_now");
+    const tot_maint_energy_now = maint_now_ton + energy_now_ton;
+    maint_energy_now.textContent = euroBedrag(tot_maint_energy_now, 2);
 
     const m3_now  = document.getElementById("m3_now");
     const m3_now_ton = gas_vol / prod_vol;
@@ -95,28 +92,25 @@ function recalc(){
     const kwh_now_ton = elec_vol / prod_vol;
     kwh_now.textContent = formatMeasure(kwh_now_ton, 'kWh', 2)
 
-    const kwhx10_now  = document.getElementById("kwhx10_now");
-    const kwhx_now_ton = kwh_now_ton /10;
-    kwhx10_now.textContent = formatMeasure(kwhx_now_ton, 'kWh', 2)
-
     // New KPI block
     const maint_new  = document.getElementById("maint_new");
     const param_maint = parseTonumber(document.getElementById("param_maint").textContent);
     const maint_new_ton = maint_now_ton * ((100-param_maint)/100);
     maint_new.textContent = euroBedrag(maint_new_ton, 2);
 
-    const gas_new  = document.getElementById("gas_new");
     const param_gas = parseTonumber(document.getElementById("param_gas").textContent);
     const gas_new_ton = gas_now_ton * ((100-param_gas)/100);
-    gas_new.textContent = euroBedrag(gas_new_ton, 2);
 
-    const elec_new  = document.getElementById("elec_new");
     const param_elec = parseTonumber(document.getElementById("param_elec").textContent);
     const elec_new_ton = elec_now_ton * ((100-param_elec)/100);
-    elec_new.textContent = euroBedrag(elec_new_ton, 2);
 
     const energy_new  = document.getElementById("energy_new");
-    energy_new.textContent = euroBedrag(elec_new_ton + gas_new_ton, 2);
+    const energy_new_ton = elec_new_ton + gas_new_ton
+    energy_new.textContent = euroBedrag(energy_new_ton, 2);
+
+    const maint_energy_new  = document.getElementById("maint_energy_new");
+    const tot_maint_energy_new = maint_new_ton + energy_new_ton;
+    maint_energy_new.textContent = euroBedrag(tot_maint_energy_new, 2);
 
     const m3_new  = document.getElementById("m3_new");
     const m3_new_ton = m3_now_ton * ((100-param_gas)/100);
@@ -126,26 +120,21 @@ function recalc(){
     const kwh_new_ton = kwh_now_ton * ((100-param_elec)/100);
     kwh_new.textContent = formatMeasure(kwh_new_ton, 'kWh', 2)
 
-    const kwhx10_new  = document.getElementById("kwhx10_new");
-    const kwhx_new_ton = kwhx_now_ton * ((100-param_elec)/100)
-    kwhx10_new.textContent = formatMeasure(kwhx_new_ton, 'kWh', 2)
-
     // Savings block (round to 0 decimals)
     const maint_save  = document.getElementById("maint_save");
     const maint_save_euro = (maint_now_ton - maint_new_ton) * prod_volume;
     maint_save.textContent = euroBedrag(maint_save_euro, 0);
 
-    const gas_save  = document.getElementById("gas_save");
     const gas_save_euro = (gas_now_ton - gas_new_ton) * prod_volume;
-    gas_save.textContent = euroBedrag(gas_save_euro, 0);
-
-    const elec_save  = document.getElementById("elec_save");
     const elec_save_euro = (elec_now_ton - elec_new_ton) * prod_volume;
-    elec_save.textContent = euroBedrag(elec_save_euro, 0);
 
     const energy_save  = document.getElementById("energy_save");
     const energy_save_euro = gas_save_euro + elec_save_euro;
     energy_save.textContent = euroBedrag(energy_save_euro, 0);
+
+    const maint_energy_save  = document.getElementById("maint_energy_save");
+    const tot_maint_energy_save = maint_save_euro + energy_save_euro;
+    maint_energy_save.textContent = euroBedrag(tot_maint_energy_save, 2);
 
     const m3_save  = document.getElementById("m3_save");
     const m3_save_m3 = (m3_now_ton - m3_new_ton) * prod_volume;
@@ -154,10 +143,6 @@ function recalc(){
     const kwh_save  = document.getElementById("kwh_save");
     const kwh_save_kwh = (kwh_now_ton - kwh_new_ton) * prod_volume;
     kwh_save.textContent = formatMeasure(kwh_save_kwh, 'kWh', 0)
-
-    const kwhx10_save  = document.getElementById("kwhx10_save");
-    const kwhx_save_kwh = (kwhx_now_ton - kwhx_new_ton) * prod_volume;
-    kwhx10_save.textContent = formatMeasure(kwhx_save_kwh, 'kWh', 0)
 
     // total savings potential (rounded to 0 decimal places)
     const grand_total  = document.getElementById("grand_total");
@@ -187,7 +172,6 @@ function drawGauge(value, graphType) {
     const canvas = document.getElementById(graphType);
     const ctx = canvas.getContext('2d');
     const maxSaving = 2000000; 
-
     const width = canvas.width;
     const height = canvas.height;
     const centerX = width / 2;
