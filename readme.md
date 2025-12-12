@@ -12,9 +12,10 @@ A web-based tool (HTML, CSS, JavaScript) that enables users to calculate various
   - Annual maintenance costs
 
 - **KPI calculations:**
-  - Energy consumption and costs per ton
-  - Gas consumption and costs per ton
+  - Energy consumption per ton
+  - Gas consumption per ton
   - Maintenance costs per ton
+  - Energy costs per ton
 
 - **Savings simulation:**
   - Three independent savings parameters (in percentages)

@@ -80,7 +80,7 @@ function exportPDF() {
     addSection("Gas", [
         ["Jaarverbruik gas (m³)", document.getElementById("param_gas_vol").textContent],
         ["Gastarief (€/m³)", document.getElementById("param_gas_inv").textContent],
-        ["aarlijkse gaskosten (€)", document.getElementById("gas_total").textContent]
+        ["Jaarlijkse gaskosten (€)", document.getElementById("gas_total").textContent]
     ]);
 
     addSection("Onderhoud", [
