@@ -50,7 +50,7 @@ This project is licensed under the MIT License. You are free to use, modify, and
 MIT License
 
 
-Copyright (c) [2025] [John Rijksen]
+Copyright (c) [2026] [John Rijksen]
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
