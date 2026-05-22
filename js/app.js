@@ -134,7 +134,7 @@ function recalc(){
 
     const maint_energy_save  = document.getElementById("maint_energy_save");
     const tot_maint_energy_save = maint_save_euro + energy_save_euro;
-    maint_energy_save.textContent = euroBedrag(tot_maint_energy_save, 2);
+    maint_energy_save.textContent = euroBedrag(tot_maint_energy_save, 0);
 
     const m3_save  = document.getElementById("m3_save");
     const m3_save_m3 = (m3_now_ton - m3_new_ton) * prod_volume;
