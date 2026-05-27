@@ -81,9 +81,8 @@ input[type=number] {
 
 .page-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   background: linear-gradient(90deg, #2c3e50, #34495e);
   color: #fff;
   padding: 10px 20px;
@@ -91,14 +90,22 @@ input[type=number] {
   margin-bottom: 12px;
 }
 
+/* LINKS */
+.page-header .left {
+  flex: 0 0 180px;
+  display: flex;
+  align-items: center;
+}
+
 .page-header .logo {
   height: 40px;
   width: auto;
 }
 
+/* MIDDEN (altijd echt gecentreerd) */
 .page-header .title {
+  flex: 1;
   text-align: center;
-  flex-grow: 1;
 }
 
 .page-header .title h1 {
@@ -111,6 +118,23 @@ input[type=number] {
   margin: 0;
   font-size: 13px;
   opacity: 0.8;
+}
+
+/* RECHTS (buttons + dropdown) */
+.page-header .right {
+  flex: 0 0 280px;        /* geeft meer ruimte aan rechts */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;              /* ruimte tussen elementen */
+}
+
+/* knoppen + dropdown gelijk gedrag */
+.pdf-button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  padding: 6px 10px;
+  font-size: 13px;
 }
 
 .results {
